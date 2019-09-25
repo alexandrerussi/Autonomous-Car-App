@@ -32,11 +32,13 @@
       </ion-list>
     </ion-col> -->
     <ion-col size="12" size-sm="8" offset-sm="2">
+      <div class="imgProfile">
+        <img src="../../../assets/images/defaultProfile.png"/>
+      </div>
       <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <ion-item>
           <ion-label>Nome</ion-label>
           <ion-input
-            id="nomeInput"
             disabled="{{ isDisabled }}"
             value="{{ firstName }}"
             ngModel
@@ -44,7 +46,37 @@
             type="text"
           ></ion-input>
         </ion-item>
-        <ion-button type="submit" expand="block">Salvar</ion-button>
+        <ion-item>
+            <ion-label>Data de nascimento</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ dataNasc }}"
+              ngModel
+              name="dataNasc"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>RG</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ rg }}"
+              ngModel
+              name="rg"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Senha</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ senha }}"
+              ngModel
+              name="senha"
+              type="password"
+            ></ion-input>
+          </ion-item>
+        <ion-button class="customButtom" type="submit" expand="block">Salvar</ion-button>
       </form>
     </ion-col>
   </ion-grid>
