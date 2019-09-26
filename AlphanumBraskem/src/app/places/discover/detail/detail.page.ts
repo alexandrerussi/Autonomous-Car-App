@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
 import { AngularFireDatabase } from '@angular/fire/database';
 
 import { Map, latLng, tileLayer, Layer, marker } from 'leaflet';
+import { Place } from '../../place.model';
+import { PlacesService } from '../../places.service';
 
 @Component({
   selector: 'app-detail',
@@ -13,15 +15,26 @@ import { Map, latLng, tileLayer, Layer, marker } from 'leaflet';
 })
 export class DetailPage implements OnInit {
   private PATH = 'profiles/funcionario1/';
+  private PATHP = 'plantas/';
   map: Map;
+  place: Place;
 
   constructor(
     private router: Router,
+    private routerAc: ActivatedRoute,
     private navCtrl: NavController,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private placesService: PlacesService
     ) { }
 
   ngOnInit() {
+    this.routerAc.paramMap.subscribe(paramMap => {
+      if (!paramMap.has('placeId')) {
+        this.navCtrl.navigateBack('/places/tabs/discover');
+        return;
+      }
+      this.place = this.placesService.getPlace(paramMap.get('placeId'));
+    });
   }
 
   chamarAlphanumcar() {
@@ -29,7 +42,10 @@ export class DetailPage implements OnInit {
     // this.navCtrl.navigateBack('/places/tabs/discover');
     // this.navCtrl.pop(); nao tem garantia
     const itemRef = this.db.object(this.PATH);
-    itemRef.set({chamar: '1'});
+    itemRef.update({chamar: '1'});
+
+    const itemRefP = this.db.object(this.PATHP);
+    itemRefP.set({id: this.place.id});
   }
 
   ionViewDidEnter() {

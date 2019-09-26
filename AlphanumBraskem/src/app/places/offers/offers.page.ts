@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Key } from 'protractor';
 
 @Component({
   selector: 'app-offers',
@@ -47,10 +46,10 @@ export class OffersPage implements OnInit {
         keys.push(child.val());
         });
       console.log(keys);
-      x.setDataNasc(keys[0]);
-      x.setFirstName(keys[1]);
-      x.setRg(keys[2]);
-      x.setSenha(keys[3]);
+      x.setDataNasc(keys[1]);
+      x.setFirstName(keys[2]);
+      x.setRg(keys[3]);
+      x.setSenha(keys[4]);
       });
   }
 
@@ -95,6 +94,7 @@ export class OffersPage implements OnInit {
       dataNasc: dataNascInput,
       rg: rgInput,
       senha: senhaInput,
+      chamar: '0'
     });
 
     this.disableInputs();
