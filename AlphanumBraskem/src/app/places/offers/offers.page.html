@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <!-- <ion-buttons slot="primary">
+      <ion-button routerLink="/places/tabs/offers/new">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <ion-buttons slot="primary">
+      <ion-button (click)="enableInputs()">
+        <ion-icon name="create" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <!-- <ion-col size="12" size-sm="8" offset-sm="2">
+      <ion-list>
+        <ion-item
+          *ngFor="let offer of offers"
+          [routerLink]="['/', 'places', 'tabs', 'offers', offer.id]"
+        >
+          <ion-thumbnail slot="start">
+            <ion-img [src]="offer.imageUrl"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h1>{{ offer.title }}</h1>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col> -->
+    <ion-col size="12" size-sm="8" offset-sm="2">
+      <div class="imgProfile">
+        <img src="../../../assets/images/defaultProfile.png"/>
+      </div>
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-item>
+          <ion-label>Nome</ion-label>
+          <ion-input
+            disabled="{{ isDisabled }}"
+            value="{{ firstName }}"
+            ngModel
+            name="nome"
+            type="text"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Data de nascimento</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ dataNasc }}"
+              ngModel
+              name="dataNasc"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>RG</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ rg }}"
+              ngModel
+              name="rg"
+              type="text"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Senha</ion-label>
+            <ion-input
+              disabled="{{ isDisabled }}"
+              value="{{ senha }}"
+              ngModel
+              name="senha"
+              type="password"
+            ></ion-input>
+          </ion-item>
+        <ion-button class="customButtom" type="submit" expand="block">Salvar</ion-button>
+      </form>
+    </ion-col>
+  </ion-grid>
+</ion-content>

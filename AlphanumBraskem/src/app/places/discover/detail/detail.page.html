@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ place.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+  <!-- <div id="mapId" style="width: 100%; height: 100%;"></div> -->
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" (click)="chamarAlphanumcar()">
+      <ion-icon name="send"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
