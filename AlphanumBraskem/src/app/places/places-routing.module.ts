@@ -57,7 +57,8 @@ const routes: Routes = [
   { path: 'offers', loadChildren: './offers/offers.module#OffersPageModule' },
   { path: 'new', loadChildren: './offers/new/new.module#NewPageModule' },
   { path: 'edit', loadChildren: './offers/edit/edit.module#EditPageModule' },
-  { path: 'of-bookings', loadChildren: './offers/of-bookings/of-bookings.module#OfBookingsPageModule' }
+  { path: 'of-bookings', loadChildren: './offers/of-bookings/of-bookings.module#OfBookingsPageModule' },
+  { path: 'mapa', loadChildren: './discover/detail/mapa/mapa.module#MapaPageModule' }
 ];
 
 @NgModule({

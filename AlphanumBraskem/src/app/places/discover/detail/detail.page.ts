@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, IonRadio, IonRadioGroup, AlertController } from '@ionic/angular';
 
 import { AngularFireDatabase } from '@angular/fire/database';
 
@@ -14,17 +14,27 @@ import { PlacesService } from '../../places.service';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+
   private PATH = 'profiles/funcionario1/';
   private PATHP = 'plantas/';
   map: Map;
   place: Place;
+  loadPlaces: Place[];
+  teste: string;
+
+  defaultSelectedRadio = 'pv14';
+  // Get value on ionChange on IonRadioGroup
+  selectedRadioGroup: any;
+  // Get value on ionSelect on IonRadio item
+  selectedRadioItem: any;
 
   constructor(
     private router: Router,
     private routerAc: ActivatedRoute,
     private navCtrl: NavController,
     private db: AngularFireDatabase,
-    private placesService: PlacesService
+    private placesService: PlacesService,
+    private alertCtrl: AlertController
     ) { }
 
   ngOnInit() {
@@ -35,6 +45,28 @@ export class DetailPage implements OnInit {
       }
       this.place = this.placesService.getPlace(paramMap.get('placeId'));
     });
+
+    this.loadPlaces = this.placesService.places;
+    this.teste = '';
+  }
+
+  radioGroupChange(event) {
+    console.log('radioGroupChange', event.detail);
+    this.selectedRadioGroup = event.detail;
+  }
+
+  radioFocus() {
+    console.log('radioFocus');
+  }
+  radioSelect(event) {
+    console.log('radioSelect', event.detail);
+    this.selectedRadioItem = event.detail;
+
+    this.teste = this.selectedRadioItem.value;
+  }
+
+  radioBlur() {
+    console.log('radioBlur');
   }
 
   chamarAlphanumcar() {
@@ -45,11 +77,51 @@ export class DetailPage implements OnInit {
     itemRef.update({chamar: '1'});
 
     const itemRefP = this.db.object(this.PATHP);
-    itemRefP.set({id: this.place.id});
+
+    if (this.teste === '') {
+      this.onEmptyRadioValue();
+    } else if (this.teste === this.place.id) {
+      this.onSameValueIdRadio();
+    } else {
+      itemRefP.update({
+        id: this.place.id,
+        embarque: this.teste
+      });
+
+      this.router.navigateByUrl('/mapa');
+    }
+  }
+
+  onEmptyRadioValue() {
+    this.alertCtrl.create({
+      header: 'Aviso!',
+      message: 'Por favor, selecione uma opção de embarque.',
+      buttons: [{
+        text: 'Fechar',
+        role: 'fechar'
+      }
+    ]
+    }).then(alertEl => {
+      alertEl.present();
+    });
+  }
+
+  onSameValueIdRadio() {
+    this.alertCtrl.create({
+      header: 'Aviso!',
+      message: 'Por favor, selecione uma opção diferente do seu destino.',
+      buttons: [{
+        text: 'Fechar',
+        role: 'fechar'
+      }
+    ]
+    }).then(alertEl => {
+      alertEl.present();
+    });
   }
 
   ionViewDidEnter() {
-    this.leafletMap();
+    // this.leafletMap();
   }
 
   leafletMap() {
