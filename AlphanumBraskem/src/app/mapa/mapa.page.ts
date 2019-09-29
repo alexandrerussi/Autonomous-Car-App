@@ -84,7 +84,14 @@ export class MapaPage implements OnInit {
         .bindPopup('PE3 Braskem')
         .openPopup();
     } else if (this.destino === 'pv5') {
-      const planta3 = marker([-12.656184, -38.316306]);
+      const planta3 = marker([-12.656184, -38.316306], {
+        icon: icon({
+          iconSize: [ 25, 41 ],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/marker-icon.png',
+          shadowUrl: 'assets/marker-shadow.png'
+       })
+      });
       planta3.addTo(this.map)
         .bindPopup('PV5 Braskem')
         .openPopup();
