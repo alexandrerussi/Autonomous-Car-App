@@ -14,6 +14,7 @@ export class MapaPage implements OnInit {
   private PATHP = 'plantas/';
   destino: string;
   map: Map;
+  imagem: string;
 
   constructor(
     private db: AngularFireDatabase,
@@ -21,15 +22,6 @@ export class MapaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-  }
-
-  setDestino(destino: string) {
-    this.destino = destino;
-    console.log(this.destino);
-  }
-
-  ionViewDidEnter() {
     const x: MapaPage = this;
     // this.offers = this.placesService.places;
     // const itemRef = this.db.object(this.PATH);
@@ -43,8 +35,37 @@ export class MapaPage implements OnInit {
         });
       console.log(keys);
       x.setDestino(keys[1]);
-      this.leafletMap();
       });
+  }
+
+  setDestino(destino: string) {
+    this.destino = destino;
+    console.log(this.destino);
+  }
+
+  ionViewDidEnter() {
+    // const x: MapaPage = this;
+    // // this.offers = this.placesService.places;
+    // // const itemRef = this.db.object(this.PATH);
+    // const keys = [];
+    // const counts = [];
+    // this.db.database.ref(this.PATHP).orderByChild('nome').once('value', (snapshot) => {
+    //   // tslint:disable-next-line: only-arrow-functions
+    //   snapshot.forEach(function(child) {
+    //     // console.log(child.val());
+    //     keys.push(child.val());
+    //     });
+    //   console.log(keys);
+    //   x.setDestino(keys[1]);
+    //   this.leafletMap();
+    //   });
+    if (this.destino === 'pv14') {
+      this.imagem = '../../assets/images/pv14.png';
+    } else if (this.destino === 'pe3') {
+      this.imagem = '../../assets/images/pe3.png';
+    } else if (this.destino === 'pv5') {
+      this.imagem = '../../assets/images/pv5.png';
+    }
   }
 
   leafletMap() {
